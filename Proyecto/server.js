@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 3500;
 
 //Middleware
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static('src/public'));
 
 //Cors Basico
 app.use((req, res, next)=> {
@@ -27,7 +27,7 @@ app.use('/api', apiRoutes)
 
 //Ruta para servir al front
 app.get('/', (req, res) => {
-    res.sendFile('index.html', { root: 'public'});
+    res.sendFile('index.html', { root: 'src/public'});
     
 });
 
