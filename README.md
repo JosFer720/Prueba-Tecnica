@@ -28,6 +28,7 @@ Perfecto, entendido. Lo dejo exactamente en ese estilo, con listas simples y com
 
 * Copiar `.env.example` a `.env` y poner la key de openweather
   `cp .env.example .env`
+  esto en el espacio marcado como: **OPENWEATHER_KEY= #Aqui va la api key del open weather**
 
 * Correr con `docker-compose up --build`
 
