@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta Datos Guatemala</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Consulta de Datos Guatemala</h1>
+        
+        <form id="consultaForm">
+            <label for="fecha">Fecha:</label>
+            <input type="date" id="fecha" required>
+            <button type="submit" id="consultarBtn">Consultar</button>
+        </form>
+
+        <div id="messageArea"></div>
+
+        <div id="resultados" style="display: none;">
+            <h2>Resultados para <span id="fechaResultado"></span></h2>
+            
+            <div class="section">
+                <h3>Tipo de Cambio USD/GTQ</h3>
+                <div class="card">
+                    <p>Venta: <span id="ventaRate">Q 0.00</span></p>
+                    <p>Compra: <span id="compraRate">Q 0.00</span></p>
+                    <small id="exchangeTime"></small>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>Clima</h3>
+                <div id="weatherGrid"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

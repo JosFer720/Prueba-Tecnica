@@ -10,3 +10,15 @@ export const pool = mysql.createPool({
     waitForConnections: true,
     connectionLimit: 10
 });
+
+export const testConnection = async () => {
+  try {
+    const connection = await pool.getConnection();
+    console.log('✅ Conexión a la base de datos exitosa');
+    connection.release();
+    return true;
+  } catch (error) {
+    console.error('❌ Error conectando a la base de datos:', error.message);
+    return false;
+  }
+};
