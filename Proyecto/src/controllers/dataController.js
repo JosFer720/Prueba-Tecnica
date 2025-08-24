@@ -1,5 +1,5 @@
 import { validateDate, formatDateForDB } from '../utils/dateValidator.js';
-import { getExchangeRate } from '../services/banguatService.jsvice.js';
+import { getExchangeRate } from '../services/banguatService.js';
 import { getWeatherData } from '../services/weatherService.js';
 import { saveExchangeRate, saveWeatherData, getDataByDate } from '../models/dataModel.js';
 
