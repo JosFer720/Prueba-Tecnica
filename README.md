@@ -1,8 +1,8 @@
-# Análisis de la prueba tecnica
+# Analisis de la prueba tecnica
 
 # Decisiones
 
-- Al ver las opciones que brinda el Banguat para recuperar los datos, la mejor opción es el del rango, ya que me permite seleccionar fecha de inicio y fecha de fin. La prueba pide que solo sea de un dia, no un rango, por lo que lo más fácil para taclear este problema es que la fecha de inicio y la de fin sean la misma, asi se pueden recuperar de un solo dia. 
+- Al ver las opciones que brinda el Banguat para recuperar los datos, la mejor opcion es el del rango, ya que me permite seleccionar fecha de inicio y fecha de fin. La prueba pide que solo sea de un dia, no un rango, por lo que lo mas facil para taclear este problema es que la fecha de inicio y la de fin sean la misma, asi se pueden recuperar de un solo dia. 
 
 - Al hacer el servicio para la API de banguat decidi que el mejor fallback sea que recupere los datos del dia de hoy.
 
@@ -14,11 +14,11 @@
 
 - las fechas se deben de normalizar al ser pasadas, y tomarse en cuenta desde media noche.
 
-Perfecto, entendido. Lo dejo exactamente en ese estilo, con listas simples y comandos cortos, sin adornos. Aquí tienes la continuación de tu README:
+Perfecto, entendido. Lo dejo exactamente en ese estilo, con listas simples y comandos cortos, sin adornos. Aqui tienes la continuacion de tu README:
 
 ---
 
-# Instalación
+# Instalacion
 
 * Clonar el repositorio
   `git clone https://github.com/JosFer720/Prueba-Tecnica.git`
@@ -56,4 +56,164 @@ Si no se usa docker:
 
 * MySQL 8
 * `fx_rate_gt`: tipo de cambio del banguat
-* `weather_gt`: clima por ubicación
+* `weather_gt`: clima por ubicacion
+
+# Pruebas de Postman
+
+## Como correr las pruebas
+
+1. Abrir Postman.
+2. Ir a **Import** → **File** y cargar el archivo `test.json`.
+3. Seleccionar la coleccion importada.
+4. Revisar que la variable de entorno este bien configurada, es decir, que el localhost:3500 este corriendo.
+5. Ejecutar cada request manualmente o tambien se puede usar **Runner** para correr toda la coleccion.
+
+## Lista de pruebas
+
+### 1. Fecha valida (Hoy)
+
+**Objetivo:** Verificar que con la fecha actual el endpoint devuelve `success: true` con datos de tipo de cambio y clima.
+
+**Request:** 
+```
+POST /api/consultar
+```
+
+**Body:**
+```json
+{"fecha":"2025-08-24"}
+```
+
+**Resultado esperado:** JSON con datos completos.
+
+![Prueba fecha valida](imagen1.png)
+
+---
+
+### 2. Fecha en rango permitido (hace 3 dias)
+
+**Objetivo:** Confirmar que con una fecha valida dentro de los ultimos 5 dias la API devuelve datos o fallback.
+
+**Request:** 
+```
+POST /api/consultar
+```
+
+**Body:**
+```json
+{"fecha":"2025-08-21"}
+```
+
+**Resultado esperado:** Respuesta `success: true`.
+
+![Fecha en rango permitido](imagen2.png)
+
+---
+
+### 3. Fecha futura (Error esperado)
+
+**Objetivo:** Probar validacion de fechas futuras.
+
+**Request:** 
+```
+POST /api/consultar
+```
+
+**Body:**
+```json
+{"fecha":"2025-12-01"}
+```
+
+**Resultado esperado:**
+```json
+{
+  "success": false,
+  "message": "No se permiten fechas futuras"
+}
+```
+
+![Error fecha futura](imagen3.png)
+
+---
+
+### 4. Fecha demasiado antigua (> 5 dias)
+
+**Objetivo:** Confirmar que el sistema rechaza fechas fuera del rango de 5 dias.
+
+**Request:** 
+```
+POST /api/consultar
+```
+
+**Body:**
+```json
+{"fecha":"2025-08-10"}
+```
+
+**Resultado esperado:**
+```json
+{
+  "success": false,
+  "message": "La fecha no puede ser mayor a 5 dias en el pasado"
+}
+```
+
+![Error fecha antigua](imagen4.png)
+
+---
+
+### 5. Fecha vacia
+
+**Objetivo:** Verificar validacion de campo obligatorio.
+
+**Request:** 
+```
+POST /api/consultar
+```
+
+**Body:**
+```json
+{"fecha":""}
+```
+
+**Resultado esperado:**
+```json
+{
+  "success": false,
+  "message": "Fecha vacia, este campo es requerido"
+}
+```
+
+![Error fecha vacia](imagen5.png)
+
+---
+
+### 6. Falla de proveedor (simulada)
+
+**Objetivo:** Asegurar que si falla un proveedor externo (ej. OpenWeather), el sistema sigue respondiendo con warnings y no se rompe.
+
+**Como simular:** Desactivar internet o usar un `OPENWEATHER_KEY` invalido.
+
+**Resultado esperado:**
+- `success: true`
+- Datos incompletos o con `success: false` en clima
+- Array `warnings` explicando el error
+
+![Falla de proveedor simulada](imagen6.png)
+
+---
+
+### 7. Reintento en la misma fecha (Reemplazo en DB)
+
+**Objetivo:** Confirmar que si se ejecuta la misma fecha dos veces, los registros son reemplazados (`ON DUPLICATE KEY UPDATE`).
+
+**Pasos:**
+1. Ejecutar `POST /api/consultar` con `{"fecha":"2025-08-24"}` dos veces seguidas.
+2. En la terminal de del IDE se observara que el update estara como true.
+
+**Resultado esperado:**
+- Los datos existen en DB
+- `fetched_at` actualizado en la ultima ejecucion
+
+![Reintento en la misma fecha](imagen7.png)
+![Reintento en la misma fecha - ejecucion](imagen8.png)

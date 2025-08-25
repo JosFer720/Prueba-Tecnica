@@ -1,0 +1,152 @@
+{
+  "info": {
+    "name": "Pruebas API Consultar",
+    "_postman_id": "12345678-abcd-efgh-ijkl-1234567890ab",
+    "description": "Pruebas para el endpoint POST /api/consultar",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1 - Fecha valida (Hoy)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"fecha\": \"2025-08-24\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3500/api/consultar",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3500",
+          "path": ["api", "consultar"]
+        }
+      }
+    },
+    {
+      "name": "2 - Fecha en rango permitido (hace 3 dias)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"fecha\": \"2025-08-21\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3500/api/consultar",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3500",
+          "path": ["api", "consultar"]
+        }
+      }
+    },
+    {
+      "name": "3 - Fecha futura (Error esperado)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"fecha\": \"2025-12-01\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3500/api/consultar",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3500",
+          "path": ["api", "consultar"]
+        }
+      }
+    },
+    {
+      "name": "4 - Fecha demasiado antigua (> 5 dias)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"fecha\": \"2025-08-10\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3500/api/consultar",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3500",
+          "path": ["api", "consultar"]
+        }
+      }
+    },
+    {
+      "name": "5 - Fecha vacia (Error esperado)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"fecha\": \"\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3500/api/consultar",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3500",
+          "path": ["api", "consultar"]
+        }
+      }
+    },
+    {
+      "name": "6 - Falla de proveedor (simulada)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"fecha\": \"2025-08-24\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3500/api/consultar",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3500",
+          "path": ["api", "consultar"]
+        },
+        "description": "Para simular esta prueba coloque una API Key invalida en OPENWEATHER_KEY. El sistema debe devolver success true pero incluir los warnings."
+      }
+    },
+    {
+      "name": "7 - Reintento en la misma fecha (Reemplazo en DB)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"fecha\": \"2025-08-24\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3500/api/consultar",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3500",
+          "path": ["api", "consultar"]
+        },
+        "description": "Para este ejecuta este request dos veces. En la terminal de del IDE se observara que el update estara como true."
+      }
+    }
+  ]
+}
