@@ -58,6 +58,40 @@ Si no se usa docker:
 * `fx_rate_gt`: tipo de cambio del banguat
 * `weather_gt`: clima por ubicacion
 
+ver los datos dentro de la base
+
+# 1. Levantar los contenedores en segundo plano
+docker-compose up -d --build
+
+# 2. Verificar que MySQL esta corriendo
+docker ps
+
+# 3. Conectarse a MySQL desde tu máquina host
+mysql -h localhost -P 3306 -u fernando -p
+# password: contra
+
+-- Ver bases de datos disponibles
+SHOW DATABASES;
+
+-- Seleccionar tu base
+USE pruebatecnica;
+
+-- Ver tablas
+SHOW TABLES;
+
+-- Ver la estructura de una tabla
+DESCRIBE nombre_tabla;
+
+-- Consultar datos
+SELECT * FROM nombre_tabla LIMIT 10;
+
+-- Crear un nuevo registro de prueba
+INSERT INTO nombre_tabla (columna1, columna2) VALUES ('valor1', 'valor2');
+
+-- Salir de MySQL
+EXIT;
+
+
 # Pruebas de Postman
 
 ## Como correr las pruebas
