@@ -86,7 +86,7 @@ POST /api/consultar
 
 **Resultado esperado:** JSON con datos completos.
 
-![Prueba fecha valida](imagen1.png)
+![Prueba fecha valida](Proyecto/imagenes/imagen1.png)
 
 ---
 
@@ -106,7 +106,7 @@ POST /api/consultar
 
 **Resultado esperado:** Respuesta `success: true`.
 
-![Fecha en rango permitido](imagen2.png)
+![Fecha en rango permitido](Proyecto/imagenes/imagen2.png)
 
 ---
 
@@ -132,7 +132,7 @@ POST /api/consultar
 }
 ```
 
-![Error fecha futura](imagen3.png)
+![Error fecha futura](Proyecto/imagenes/imagen3.png)
 
 ---
 
@@ -158,7 +158,7 @@ POST /api/consultar
 }
 ```
 
-![Error fecha antigua](imagen4.png)
+![Error fecha antigua](Proyecto/imagenes/imagen4.png)
 
 ---
 
@@ -184,7 +184,7 @@ POST /api/consultar
 }
 ```
 
-![Error fecha vacia](imagen5.png)
+![Error fecha vacia](Proyecto/imagenes/imagen5.png)
 
 ---
 
@@ -199,7 +199,7 @@ POST /api/consultar
 - Datos incompletos o con `success: false` en clima
 - Array `warnings` explicando el error
 
-![Falla de proveedor simulada](imagen6.png)
+![Falla de proveedor simulada](Proyecto/imagenes/imagen6.png)
 
 ---
 
@@ -215,5 +215,5 @@ POST /api/consultar
 - Los datos existen en DB
 - `fetched_at` actualizado en la ultima ejecucion
 
-![Reintento en la misma fecha](imagen7.png)
-![Reintento en la misma fecha - ejecucion](imagen8.png)
+![Reintento en la misma fecha](Proyecto/imagenes/imagen7.png)
+![Reintento en la misma fecha - ejecucion](Proyecto/imagenes/imagen8.png)
