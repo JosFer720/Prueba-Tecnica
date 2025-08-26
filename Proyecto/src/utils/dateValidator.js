@@ -18,7 +18,7 @@ export const validateDate = (dateString) => {
 
     // Calcular fecha limite de 5 dias atras
     const fiveDaysAgo = new Date(todayNormalized);
-    fiveDaysAgo.setDate(todayNormalized.getDate() - 5);
+    fiveDaysAgo.setDate(todayNormalized.getDate() - 4);
 
     // Verificar que no sea fecha futura
     if (inputNormalized > todayNormalized) {

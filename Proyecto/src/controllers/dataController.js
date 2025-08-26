@@ -21,7 +21,7 @@ export const consultarDatos = async (req, res) => {
 
     // Obtener tipo de cambio del banguat
     try {
-      console.log('💱 Obteniendo tipo de cambio...');
+      console.log('Obteniendo tipo de cambio...');
       exchangeRateResult = await getExchangeRate(dateForDB);
       
       if (exchangeRateResult.success) {
